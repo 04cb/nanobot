@@ -1074,7 +1074,9 @@ class OpenAICompatProvider(LLMProvider):
                 function_provider_specific_fields=fn_prov,
             ))
 
-        reasoning_content = getattr(msg, "reasoning_content", None) or None
+        reasoning_content = getattr(msg, "reasoning_content", None)
+        if not isinstance(reasoning_content, str):
+            reasoning_content = None
         if not reasoning_content and getattr(msg, "reasoning", None):
             reasoning_content = msg.reasoning
 
